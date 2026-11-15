@@ -52,6 +52,8 @@ class GameSettings {
     // Defaulting this to "" - and implement the fallback only in NotificationsScroll leads to Options popup and actual effect being in disagreement!
     var notificationScroll: String = NotificationsScroll.UserSetting.default().name
     var showMinimap = true
+    /** Whether the live score leaderboard on the World Screen is expanded (true) or collapsed to its header (false) */
+    var leaderboardExpanded = true
     var showTutorials = true
     // There have no UI other than the "Reset tutorials" button:
     var tutorialsShown = HashSet<String>()

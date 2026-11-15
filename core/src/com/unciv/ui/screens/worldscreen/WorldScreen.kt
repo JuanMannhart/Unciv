@@ -181,6 +181,7 @@ class WorldScreen(
     internal val statusButtons = StatusButtons(nextTurnButton)
     internal val smallUnitButton = SmallUnitButton(this, statusButtons)
     private val tutorialTaskTable = TutorialTaskTable(this)
+    private val leaderboardTable = LeaderboardTable(this)
 
     private var nextTurnUpdateJob: Job? = null
 
@@ -212,6 +213,7 @@ class WorldScreen(
         stage.addActor(statusButtons)
         stage.addActor(techPolicyAndDiplomacy)
         stage.addActor(chatButton)
+        stage.addActor(leaderboardTable)
 
         stage.addActor(zoomController)
         zoomController.isVisible = UncivGame.Current.settings.showZoomButtons
@@ -362,6 +364,7 @@ class WorldScreen(
         bottomTileInfoTable.isVisible = uiEnabled
         unitActionsTable.isVisible = uiEnabled
         notificationsScroll.isVisible = uiEnabled
+        if (uiEnabled) leaderboardTable.update() else leaderboardTable.isVisible = false
         minimapWrapper.isVisible = uiEnabled
         bottomUnitTable.isVisible = uiEnabled
         if (uiEnabled) battleTable.update() else battleTable.isVisible = false
@@ -488,6 +491,9 @@ class WorldScreen(
         }
 
         updateGameplayButtons()
+
+        // After updateGameplayButtons: it is placed below the tech/policy buttons and the chat button
+        if (uiEnabled) leaderboardTable.update()
 
         // Late: the task card is fitted into the room left by the widgets around it, so they must have their final size
         if (uiEnabled) tutorialTaskTable.update()

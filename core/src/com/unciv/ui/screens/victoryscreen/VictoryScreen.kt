@@ -212,6 +212,12 @@ class VictoryScreen(
 
     override fun recreate(): BaseScreen = VictoryScreen(worldScreen, tabs.activePage)
 
+    /** Switches to the Rankings tab, if it is available in this game */
+    fun selectRankingsPage() {
+        val index = tabs.getPageIndex(VictoryTabs.Rankings.name)
+        if (index >= 0) tabs.selectPage(index)
+    }
+
     companion object {
         @Readonly
         fun canViewCivStats(
